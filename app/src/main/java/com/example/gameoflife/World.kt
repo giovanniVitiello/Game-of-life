@@ -56,29 +56,27 @@ class World {
 //        return cell
 //    }
 
-    fun nextGeneration() {
-        val cellLive = ArrayList<String>()
-        val cellDead = ArrayList<String>()
+    fun nextGeneration(matrix : Array<Array<String>>) : Array<Array<String>>{
 
-        for (i in 1 until row-1){
-            for (j in 1 until column-1){
+        for (i in 0 until row){
+            for (j in 0 until column){
                 val nbNeighbours = numNeighboursOf(i, j)
 
                 // rule 1 & rule 3
-                if (cell.equals("IIII") &&
+                if (matrix[i][j].equals("IIII") &&
                     (nbNeighbours < 2 || nbNeighbours > 3)) {
-                    cellDead.add(cell);
+                    matrix[i][j] = " "
                 }
 
                 // rule 2 & rule 4
-                if ((cell.equals("IIII") && (nbNeighbours == 3 || nbNeighbours == 2))
+                if ((matrix[i][j].equals("IIII") && (nbNeighbours == 3 || nbNeighbours == 2))
                     ||
-                    (!cell.equals("IIII") && nbNeighbours == 3)) {
-                    cellLive.add(cell);
+                    (!matrix[i][j].equals("IIII") && nbNeighbours == 3)) {
+                    matrix[i][j] = "IIII"
                 }
             }
         }
-
+        return matrix
     }
 
 

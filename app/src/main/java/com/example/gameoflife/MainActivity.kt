@@ -54,7 +54,10 @@ class MainActivity : AppCompatActivity() {
             gridView.adapter = tempAdapter
 
             start.setOnClickListener {
-
+                val finalMatrix = world.nextGeneration(tempArr)
+                val tempnewArr1d = world.transform2dTo1dArray(finalMatrix)
+                val tempnewAdapter = ArrayAdapter<String>(this, R.layout.cells, tempnewArr1d)
+                gridView.adapter = tempnewAdapter
             }
 
 
