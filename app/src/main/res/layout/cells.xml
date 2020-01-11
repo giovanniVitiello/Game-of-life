@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/single_cell"
     android:textSize="12sp"
     android:textStyle="italic"
     android:textAlignment="center"
     android:layout_width="14dp"
     android:layout_height="14dp"
-    android:background="@drawable/square_cell"/>
+    android:background="@drawable/square_cell_white"/>
 
 
 
