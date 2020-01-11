@@ -1,20 +1,17 @@
 package com.example.gameoflife
 
-import android.widget.ArrayAdapter
-import android.widget.GridView
-
 class World {
 
     var column : Int
     var row : Int
     var result : Array<Array<String>>
-    var cell: Cell
+    var cell: String
 
     init {
         column = 20
         row = 20
-        result = Array(row) { Array(column) { " " } }
-        cell = Cell()
+        cell = " "
+        result = Array(row) { Array(column) { cell } }
     }
 
 
@@ -28,11 +25,61 @@ class World {
         return arr1d
     }
 
-//    fun nextGeneration() : List<String>{
-//        if ()
-//
-//        return emptyList()
+    fun numNeighboursOf(i: Int, j : Int): Int{
+        var nb = 0
+
+        for (k in i - 1..i + 1) {
+            for (l in j - 1..j + 1) {
+                if ((k != i || l != j) && k >= 0 && k < row && l >= 0 && l < column
+                ) {
+                    val cell: String = result.get(k).get(l)
+                    if (cell.equals("IIII")) {
+                        nb++
+                    }
+                }
+            }
+        }
+        return nb
+    }
+
+//    fun bornCell(cell : String) : String{
+//           if (cell.equals(" ")){
+//               cell.replace(" ", "IIII")
+//           }
+//        return cell
 //    }
+//
+//    fun deadCell(cell : String) : String{
+//        if (cell.equals("IIII")){
+//            cell.replace(" ", " ")
+//        }
+//        return cell
+//    }
+
+    fun nextGeneration() {
+        val cellLive = ArrayList<String>()
+        val cellDead = ArrayList<String>()
+
+        for (i in 1 until row-1){
+            for (j in 1 until column-1){
+                val nbNeighbours = numNeighboursOf(i, j)
+
+                // rule 1 & rule 3
+                if (cell.equals("IIII") &&
+                    (nbNeighbours < 2 || nbNeighbours > 3)) {
+                    cellDead.add(cell);
+                }
+
+                // rule 2 & rule 4
+                if ((cell.equals("IIII") && (nbNeighbours == 3 || nbNeighbours == 2))
+                    ||
+                    (!cell.equals("IIII") && nbNeighbours == 3)) {
+                    cellLive.add(cell);
+                }
+            }
+        }
+
+    }
 
 
 }

@@ -13,18 +13,22 @@ import kotlinx.android.synthetic.main.cells.view.*
 class MainActivity : AppCompatActivity() {
     private lateinit var world: World
     private lateinit var arr1d: List<String>
+    private lateinit var gridView: GridView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         world = World()
-
         arr1d = world.transform2dTo1dArray(world.result)
 
-        val gridView: GridView = findViewById(R.id.gridview)
+        gridView = findViewById(R.id.gridview)
         val adapter = ArrayAdapter<String>(this, R.layout.cells, arr1d)
         gridView.adapter = adapter
+    }
+
+    override fun onStart() {
+        super.onStart()
 
         //method to click the single item in a gridView
 
@@ -49,20 +53,14 @@ class MainActivity : AppCompatActivity() {
             val tempAdapter = ArrayAdapter<String>(this, R.layout.cells, tempArr1d)
             gridView.adapter = tempAdapter
 
-            Toast.makeText(this, changedString, Toast.LENGTH_LONG).show()
+            start.setOnClickListener {
+
+            }
+
+
         }
-
-    }
-
-    override fun onStart() {
-
-        super.onStart()
-
-
-    }
-
-    fun bornCell() {
-
     }
 }
+
+
 
