@@ -7,12 +7,9 @@ class World constructor(val rows: Int, val columns: Int){
     init {
 
         result = Array(rows) { Array(columns) { Cell( TypeCell.NEVERBORN) } }
-        for (row in 0 until rows ){
-            for(column in 0 until columns){
-                val cell = Cell(TypeCell.NEVERBORN)
-                result[row][column] = cell
-            }
-        }
+
+//      result[2][3] = Cell(TypeCell.ALIVE) -> to test the fun numNeighboursOf
+
     }
 
     fun transform2dTo1dArray(arr2d : Array<Array<Cell>>): List<Cell>{
@@ -41,20 +38,6 @@ class World constructor(val rows: Int, val columns: Int){
         }
         return nb
     }
-
-//    fun bornCell(cell : String) : String{
-//           if (cell.equals(" ")){
-//               cell.replace(" ", "IIII")
-//           }
-//        return cell
-//    }
-//
-//    fun deadCell(cell : String) : String{
-//        if (cell.equals("IIII")){
-//            cell.replace(" ", " ")
-//        }
-//        return cell
-//    }
 
     fun nextGeneration(matrix : Array<Array<Cell>>) : Array<Array<Cell>>{
 

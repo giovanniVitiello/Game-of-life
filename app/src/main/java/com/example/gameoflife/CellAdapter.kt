@@ -6,9 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
-import androidx.annotation.LayoutRes
 
-class CellAdapter(context: Context, @LayoutRes private val layoutResource: Int, private val allCell: List<Cell>):
+class CellAdapter(context: Context, private val layoutResource: Int, allCell: List<Cell>):
     ArrayAdapter<Cell>(context, layoutResource, allCell)
      {
     private var mCell: List<Cell> = allCell
@@ -22,12 +21,7 @@ class CellAdapter(context: Context, @LayoutRes private val layoutResource: Int, 
     }
 
          override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-             val view: ImageView =
-                 convertView as ImageView? ?: LayoutInflater.from(context).inflate(
-                     layoutResource,
-                     parent,
-                     false
-                 ) as ImageView
+             val view: ImageView = convertView as ImageView? ?: LayoutInflater.from(context).inflate(layoutResource, parent,false) as ImageView
              val cell = mCell[position]
              //view.setBackgroundColor( if (cell.alive) Color.parseColor("#000000") else Color.parseColor("#FFFFFF"))
              view.setImageResource(
@@ -37,5 +31,4 @@ class CellAdapter(context: Context, @LayoutRes private val layoutResource: Int, 
              )
              return view
          }
-
 }
