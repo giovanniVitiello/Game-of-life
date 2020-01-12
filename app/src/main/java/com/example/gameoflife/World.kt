@@ -8,7 +8,7 @@ class World constructor(val rows: Int, val columns: Int){
 
         result = Array(rows) { Array(columns) { Cell( TypeCell.NEVERBORN) } }
 
-    result[2][3] = Cell(TypeCell.ALIVE) //-> to test the fun numNeighboursOf
+        // result[2][3] = Cell(TypeCell.ALIVE) -> to test the fun numNeighboursOf
 
     }
 
