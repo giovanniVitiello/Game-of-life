@@ -6,14 +6,13 @@ class World constructor(val rows: Int, val columns: Int){
 
     init {
 
-        result = Array(rows) { Array(columns) { Cell(0,0,false) } }
+        result = Array(rows) { Array(columns) { Cell( TypeCell.NEVERBORN) } }
         for (row in 0 until rows ){
             for(column in 0 until columns){
-                val cell = Cell(row, column, false)
+                val cell = Cell(TypeCell.NEVERBORN)
                 result[row][column] = cell
             }
         }
-
     }
 
     fun transform2dTo1dArray(arr2d : Array<Array<Cell>>): List<Cell>{
@@ -33,8 +32,8 @@ class World constructor(val rows: Int, val columns: Int){
             for (l in j - 1..j + 1) {
                 if ((k != i || l != j) && k >= 0 && k < rows && l >= 0 && l < columns
                 ) {
-                    val cell: Cell = result.get(k).get(l)
-                    if (cell.alive) {
+                    val cell = result[k][l]
+                    if (cell.alive == TypeCell.ALIVE) {
                         nb++
                     }
                 }
@@ -64,16 +63,19 @@ class World constructor(val rows: Int, val columns: Int){
                 val nbNeighbours = numNeighboursOf(i, j)
 
                 // rule 1 & rule 3
-                if (matrix[i][j].alive &&
+                if (matrix[i][j].alive == TypeCell.ALIVE &&
                     (nbNeighbours < 2 || nbNeighbours > 3)) {
-                    matrix[i][j].alive = false
+                    matrix[i][j].alive = TypeCell.DEAD
                 }
 
                 // rule 2 & rule 4
-                if ((matrix[i][j].alive && (nbNeighbours == 3 || nbNeighbours == 2))
+                if ((matrix[i][j].alive == TypeCell.ALIVE && (nbNeighbours == 3 || nbNeighbours == 2))
                     ||
-                    (!matrix[i][j].alive && nbNeighbours == 3)) {
-                    matrix[i][j].alive = true
+                    (matrix[i][j].alive == TypeCell.NEVERBORN && nbNeighbours == 3)
+                    ||
+                    (matrix[i][j].alive == TypeCell.DEAD && nbNeighbours == 3)){
+
+                    matrix[i][j].alive = TypeCell.ALIVE
                 }
             }
         }

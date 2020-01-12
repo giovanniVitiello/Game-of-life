@@ -35,12 +35,12 @@ class MainActivity : AppCompatActivity() {
         gridview.setOnItemClickListener { parent, view, position, id ->
             val itemClicked = parent.getItemAtPosition(position) as Cell
 
-            if (!itemClicked.alive) {
-                itemClicked.alive = true
+            if (itemClicked.alive.equals(TypeCell.NEVERBORN)) {
+                itemClicked.alive = TypeCell.ALIVE
             } else
-               itemClicked.alive = false
+               itemClicked.alive = TypeCell.NEVERBORN
 
-            //create a temporany array and set the clicked cell with "X"
+            //create a temporany array and set the clicked cell with black
 
             val tempArr = world.result
             tempArr[position / world.rows][(position % world.columns)] = itemClicked
