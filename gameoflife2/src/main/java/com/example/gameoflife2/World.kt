@@ -1,13 +1,26 @@
-package com.example.gameoflife
+package com.example.gameoflife2
 
 class World constructor(val rows: Int, val columns: Int){
 
     var world = arrayOf<Array<Cell>>()
+    var newWorldRandom = arrayOf<Array<Cell>>()
 
 
     fun initialWorld() : Array<Array<Cell>>{
         world = Array(rows) { Array(columns) { Cell( TypeCell.NEVERBORN) } }
         return world
+    }
+    fun addAliveCellRandom(): Array<Array<Cell>> {
+        val cellNeverBorn = Cell(TypeCell.NEVERBORN)
+        val cellAlive = Cell(TypeCell.ALIVE)
+        newWorldRandom  = Array(rows) { Array(columns) {  cellNeverBorn } }
+        repeat(150){
+            val location = Location(0,0)
+            location.x = (0..19).random()
+            location.y = (0..19).random()
+            newWorldRandom[location.x][location.y] = cellAlive
+        }
+        return newWorldRandom
     }
 
     fun transform2dTo1dArray(arr2d : Array<Array<Cell>>): List<Cell>{
@@ -27,7 +40,7 @@ class World constructor(val rows: Int, val columns: Int){
             for (l in j - 1..j + 1) {
                 if ((k != i || l != j) && k >= 0 && k < rows && l >= 0 && l < columns
                 ) {
-                    val cell = world[k][l]
+                    val cell = newWorldRandom[k][l]
                     if (cell.alive == TypeCell.ALIVE) {
                         nb++
                     }
@@ -62,6 +75,7 @@ class World constructor(val rows: Int, val columns: Int){
         }
         return matrix
     }
+
 
 
 }
